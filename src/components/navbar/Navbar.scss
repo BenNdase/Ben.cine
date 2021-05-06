@@ -1,0 +1,28 @@
+.navbar{
+    background-color: rgba(0, 0, 0, 0) !important;
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between;
+
+    &-brand span:nth-child(1){
+        color: #F1792F;
+        font-family: 'Ubuntu Mono', monospace;
+        font-weight: bold;
+        background-color: white;
+        padding: 2%;
+    }
+    &-brand span:nth-child(2){
+        color: white;
+        font-family: 'Ubuntu Mono', monospace;
+        font-weight: bold;
+        background-color: #F1792F;
+        padding: 2%;
+    }
+    &-items{
+        padding: auto;
+    }
+    &-nav{
+        font-family: 'Ubuntu Mono', monospace;
+        font-weight: bold; 
+    }
+}

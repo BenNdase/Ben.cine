@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss"
 import { RecoverMovies } from "../../service/api";
+import Navbar from "../navbar/Navbar";
 
 const Home = () => {
   const [nowPLaying, setNowPlaying] = useState([]);
@@ -11,7 +12,7 @@ const Home = () => {
     fetchApi();
   }, []);
   const tabMovies = [];
-  const movies = nowPLaying.slice(0, 5).map((movie, index) => {
+  const movies = nowPLaying.slice(7, 20).map((movie, index) => {
     tabMovies.push(movie.backPoster);
     return (
       <div key={index}>
@@ -19,7 +20,6 @@ const Home = () => {
           <img
             src={movie.backPoster}
             alt={movie.title}
-            style={{ height: 600 }}
           />
           <p>{movie.title}</p>
         </div>
@@ -28,7 +28,7 @@ const Home = () => {
   });
   return (
     <div>
-      <div id="carousel_1" className="carousel slide w-100" data-ride="carousel">
+      <div id="carousel_1" className="carousel slide" data-ride="carousel">
         <ul className="carousel-indicators">
           <li data-target="#carousel_1" data-slide-to="0" class="active"></li>
           <li data-target="#carousel_1" data-slide-to="1"></li>
@@ -42,23 +42,24 @@ const Home = () => {
             <img src={tabMovies[1]} alt="Chicago" />
           </div>
           <div className="carousel-item">
-            <img src={tabMovies[2]} alt="Chicago" />
+            <img src={tabMovies[4]} alt="Chicago" />
           </div>
         </div>
-        <a
-          className="carousel-control-prev"
-          href="#carousel_1"
-          data-slide="prev"
-        >
+        <a className="carousel-control-prev" href="#carousel_1" data-slide="prev">
           <span className="carousel-control-prev-icon"></span>
         </a>
-        <a
-          className="carousel-control-next"
-          href="#carousel_1"
-          data-slide="next"
-        >
+        <a className="carousel-control-next" href="#carousel_1" data-slide="next">
           <span className="carousel-control-next-icon"></span>
         </a>
+      </div>
+      <div className="header-container">
+        <Navbar />
+        <div className="title-container">
+          <h1 className="title">Obtenez les meilleurs films ici</h1>
+          <p className="description">
+            Ben.ciné est une maison de production de haute qualité
+          </p>
+        </div>
       </div>
     </div>
   );
