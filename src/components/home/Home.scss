@@ -1,6 +1,6 @@
-.carousel-item {
-    width: 100vw;
+.carousel {
     height: 100vh;
+    overflow-y: hidden;
 }
 .carousel-item img{
     width: 100%;
@@ -63,12 +63,12 @@
         }
     }
     &-nowplaying{
+        background-color: #212222b2 !important;
+    }
+    &-toprated{
         background-color: #dbdde0 !important;
     }
     &-popular{
-        background-color: #dbdde0 !important;
-    }
-    &-toprated{
-        background-color: #17191d !important;
+        background-color: rgba(255, 255, 255, 0.144) !important;
     }
 }

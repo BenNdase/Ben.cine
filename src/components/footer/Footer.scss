@@ -1,0 +1,21 @@
+.footer{
+    background-color:#141516 !important;
+    
+    &-logo{
+        padding-top: 3%;
+    }
+    &-contact{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        padding-top: 2%;
+
+        & hr{
+            color: white;
+        }
+    }
+}
+.iconify{
+    color: rgb(121, 52, 52);
+}

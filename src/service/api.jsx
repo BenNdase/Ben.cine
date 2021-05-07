@@ -10,9 +10,9 @@ const movieCategoryUrl = `${apiUrl}/genre/movie/list`;
 const discoverMoviesUrl = `${apiUrl}/movie/discover`;
 const personUrl = `${apiUrl}/trending/person/week`;
 
-export const RecoverMovies = async () => {
+const fetchMovies = async (movieUrl) => {
     try {
-        const {data} = await axios.get(nowPlayingUrl, {
+        const {data} = await axios.get(movieUrl, {
             params:{
                 api_key:apiKey,
                 language:'en_US',
@@ -36,6 +36,10 @@ export const RecoverMovies = async () => {
         console.log(error)
     }
 }
+export const nowPlayingMovies = fetchMovies(nowPlayingUrl);
+export const topratedMoviesList = fetchMovies(topratedMoviesUrl);  
+export const popularMoviesList = fetchMovies(popularMoviesUrl);
+
 export const RecoverMovieCategoryUrl = async () => {
     // try {
     //     const {data} = await axios.get(movieCategoryUrl, {
@@ -82,56 +86,7 @@ export const RecoverMoviesByCategory = async (category_id) => {
 export const RecoverPersons = () => {
     
 }
-export const RecoverTopratedMovies = async () => {
-    try {
-        const {data} = await axios.get(topratedMoviesUrl, {
-            params:{
-                api_key:apiKey,
-                language:'en_US',
-                page:1
-            }
-        })
-        const posterUrl = 'https://image.tmdb.org/t/p/original/'
-        const modifiedData = data['results'].map((resultData) => ({
-            id: resultData['id'],
-            backPoster: posterUrl + resultData['backdrop_path'],
-            popularity: resultData['popularith'],
-            title: resultData['title'],
-            poster: posterUrl + resultData['poster_path'],
-            overview: resultData['overview'],
-            rating: resultData['vote_average']
-        }))
-        console.log("Les films au",modifiedData);
-        return modifiedData;
-    } catch (error) {
-        
-    }
-}
-export const RecoverPopularMovies = async () => {
-    try {
-        const {data} = await axios.get(popularMoviesUrl, {
-            params:{
-                api_key:apiKey,
-                language:'en_US',
-                page:1
-            }
-        })
-        const posterUrl = 'https://image.tmdb.org/t/p/original/'
-        const modifiedData = data['results'].map((resultData) => ({
-            id: resultData['id'],
-            backPoster: posterUrl + resultData['backdrop_path'],
-            popularity: resultData['popularith'],
-            title: resultData['title'],
-            poster: posterUrl + resultData['poster_path'],
-            overview: resultData['overview'],
-            rating: resultData['vote_average']
-        }))
-        console.log("Les films au",modifiedData);
-        return modifiedData;
-    } catch (error) {
-        
-    }
-}
+
 export const RecoverDiscoverMovies = async () => {
     try {
         const {data} = await axios.get(discoverMoviesUrl, {
