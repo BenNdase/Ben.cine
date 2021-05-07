@@ -33,3 +33,35 @@
     font-weight: bold;
     color: white;
 }
+.container{
+   position: relative;
+   left:50%;
+   transform: translateX(-50%);
+}
+.movies{
+    padding-top: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-title{
+        color: #da6319;
+    }
+    &-link{
+        text-decoration: none;
+        color: white;
+        background-color: #F1792F;
+        padding: 0.5%;
+        border-radius: 2px;
+        transition: all 0.4s linear;
+
+        &:hover{
+            text-decoration: none;
+            color: white;
+            background-color: #d67c44;
+        }
+    }
+    &-popular{
+        background-color: #dbdde0 !important;
+    }
+}

@@ -5,7 +5,7 @@ const apiUrl = "https://api.themoviedb.org/3";
 const nowPlayingUrl = `${apiUrl}/movie/now_playing`;
 const toprateUrl = `${apiUrl}/top_rated`;
 const movieUrl = `${apiUrl}/movie`;
-const genreUrl = `${apiUrl}/genre/movie/list`;
+const movieCategoryUrl = `${apiUrl}/genre/movie/list`;
 const discoverMoviesUrl = `${apiUrl}/discover/movie`;
 const personUrl = `${apiUrl}/trending/person/week`;
 
@@ -28,18 +28,55 @@ export const RecoverMovies = async () => {
             overview: resultData['overview'],
             rating: resultData['vote_average']
         }))
-        console.log(modifiedData);
+        console.log("Les films",modifiedData);
         return modifiedData;
         
     } catch (error) {
         console.log(error)
     }
 }
-export const RecoverGenre = () => {
-
+export const RecoverMovieCategoryUrl = async () => {
+    try {
+        const {data} = await axios.get(movieCategoryUrl, {
+            params:{
+                api_key:apiKey,
+                language:'en_US',
+                page:1
+            }
+        })
+        const modifiedData = data['genres'].map((genre) => ({
+            id:genre['id'],
+            name:genre['name']
+        }))
+        return modifiedData;
+    } catch (error) {}
 }
-export const RecoverMoviesByGenre = () => {
-
+export const RecoverMoviesByCategory = async (category_id) => {
+    try {
+        const {data} = await axios.get(movieUrl, {
+            params:{
+                api_key:apiKey,
+                language:'en_US',
+                page:1,
+                with_genre:category_id
+            }
+        })
+        const posterUrl = 'https://image.tmdb.org/t/p/w1280/'
+        const modifiedData = data['results'].map((resultData) => ({
+            id: resultData['id'],
+            backPoster: posterUrl + resultData['backdrop_path'],
+            popularity: resultData['popularith'],
+            title: resultData['title'],
+            poster: posterUrl + resultData['poster_path'],
+            overview: resultData['overview'],
+            rating: resultData['vote_average']
+        }))
+        console.log("Les catégories",modifiedData);
+        console.log(modifiedData);
+        return modifiedData;
+    } catch (error) {
+        
+    }
 }
 export const RecoverPersons = () => {
     

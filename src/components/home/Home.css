@@ -46,4 +46,16 @@
   font-weight: bold;
   color: white;
 }
+
+.container {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.container-title {
+  color: #F1792F;
+  padding-top: 2%;
+}
 /*# sourceMappingURL=Home.css.map */

@@ -4,6 +4,10 @@
     display: flex;
     justify-content: space-between;
 
+    &-container{
+        padding: 5% auto;
+    }
+
     &-brand span:nth-child(1){
         color: #F1792F;
         font-family: 'Ubuntu Mono', monospace;

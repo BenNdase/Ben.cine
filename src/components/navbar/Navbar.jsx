@@ -3,10 +3,10 @@ import './Navbar.scss';
 
 const Navigationbar = () => {
   return (
-        <div className="container">
+        <div className="container-fluid">
           <nav className="navbar navbar-expand-lg">
             <div className="navbar-brand">
-              <span>Ben.</span>
+              <span>Ben</span>
               <span>Ciné</span>
             </div>
             <div className="navbar-items navbar-collapse" id="navbarSupportedContent">

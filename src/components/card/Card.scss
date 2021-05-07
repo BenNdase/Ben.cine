@@ -1,0 +1,31 @@
+.container-card{
+    padding: 2%;
+    width: 100%;
+    
+}
+.card{
+    border: none;
+    background-color: #151515;
+
+    &-image{
+        transition: all 0.4s linear;
+
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+    &-link{
+        text-decoration: none;
+    }
+    &-title{
+        color: #151515;
+        font-family: 'Ubuntu Mono', monospace;
+        font-weight: bold;
+        padding: 4% 3%;
+    }
+    &-description{
+        padding: 0 3%;
+        color: #363535;
+        font-family: 'Ubuntu Mono', monospace;
+    }
+}

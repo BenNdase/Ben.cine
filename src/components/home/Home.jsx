@@ -1,35 +1,41 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss"
-import { RecoverMovies } from "../../service/api";
-import Navbar from "../navbar/Navbar";
+import { RecoverMovies, RecoverMoviesByCategory } from "../../service/api";
 import Header from "../header/Header";
+import CardMovies from "../card/Card";
+import {Link}from "react-router-dom"
 
 const Home = () => {
   const [nowPLaying, setNowPlaying] = useState([]);
+  const [movieByCategory, setMoviesByCategory] = useState([])
   useEffect(() => {
     const fetchApi = async () => {
       setNowPlaying(await RecoverMovies());
+      setMoviesByCategory(await RecoverMoviesByCategory());
     };
     fetchApi();
   }, []);
   const tabMovies = [];
-  const movies = nowPLaying.slice(7, 20).map((movie, index) => {
+  const moviesList = nowPLaying.slice(0, 9).map((movie,index) => {
     tabMovies.push(movie.backPoster);
-    return (
-      <div key={index}>
-        <div className="carousel-center">
-          <img
-            src={movie.backPoster}
-            alt={movie.title}
-          />
-          <p>{movie.title}</p>
-        </div>
-      </div>
-    );
+    return(
+        <>
+            {index <= 6 && index !== 4 ? <CardMovies key={index} id={movie.id} poster={movie.poster} title={movie.title} rating={movie.rating} /> : null}
+        </>
+    )
   });
   return (
     <div>
-      <Header firstSrc={tabMovies[0]} secondSrc={tabMovies[1]} thirdSrc={tabMovies[4]} />
+      <Header firstSrc={tabMovies[7]} secondSrc={tabMovies[5]} thirdSrc={tabMovies[8]} />
+      <div className="movies-popular">
+        <div className="container row">
+          <div className="movies">
+            <h3 className="movies-title">Populaire</h3>
+            <Link to="/film/populaire" className="movies-link">Voir tout</Link>
+          </div>
+          {moviesList}
+        </div>
+      </div>
     </div>
   );
 };

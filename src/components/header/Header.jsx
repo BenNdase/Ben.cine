@@ -4,11 +4,6 @@ const Header = (props) => {
   return (
     <div>
       <div id="carousel_1" className="carousel slide" data-ride="carousel">
-        <ul className="carousel-indicators">
-          <li data-target="#carousel_1" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel_1" data-slide-to="1"></li>
-          <li data-target="#carousel_1" data-slide-to="2"></li>
-        </ul>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src={props.firstSrc} alt="" />
