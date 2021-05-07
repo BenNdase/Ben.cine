@@ -5,8 +5,10 @@
 }
 .card{
     border: none;
-    background-color: #151515;
-
+    background-color: #151515;   
+    .image-container{
+        overflow: hidden;
+    }
     &-image{
         transition: all 0.4s linear;
 

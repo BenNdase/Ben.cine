@@ -5,7 +5,9 @@ const CardMovies = (props) => {
         <div className="container-card col-md-2 col-sm-3" key={props.key} >
             <div className="card">
               <Link to={`/movie/${props.id}`} className="card-link">
-                  <img src={props.poster} alt={props.title} className="card-image img-fluid" />
+                  <div className="image-container">
+                    <img src={props.poster} alt={props.title} className="card-image img-fluid" />
+                  </div>
                   <p className="card-title">{props.title}</p>
                   <p className="card-description">Evaluation : {props.rating}</p>
               </Link>
