@@ -1,8 +1,18 @@
+.fixed-top{
+    
+}
 .navbar{
     background-color: rgba(0, 0, 0, 0) !important;
-    margin-top: 2%;
+    left: 50%;
+    padding: 0% 4%;
+    margin-top: 1%;
+    transform: translateX(-49%);
+    position: fixed;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
 
     &-container{
         padding: 5% auto;

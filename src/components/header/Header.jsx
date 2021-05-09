@@ -30,7 +30,7 @@ const Header = (props) => {
           <span className="carousel-control-next-icon"></span>
         </a>
       </div>
-      <div className="header-container">
+      <div className="header-container container-fluid">
         <Navbar />
         <div className="title-container">
           <h1 className="title">Obtenez les meilleurs films ici</h1>

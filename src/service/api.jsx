@@ -5,6 +5,7 @@ const apiUrl = "https://api.themoviedb.org/3";
 const nowPlayingUrl = `${apiUrl}/movie/now_playing`;
 const topratedMoviesUrl = `${apiUrl}/movie/top_rated`;
 const popularMoviesUrl = `${apiUrl}/movie/popular`;
+const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming`;
 const movieUrl = `${apiUrl}/movie`;
 const movieCategoryUrl = `${apiUrl}/genre/movie/list`;
 const discoverMoviesUrl = `${apiUrl}/movie/discover`;
@@ -19,7 +20,7 @@ const fetchMovies = async (movieUrl) => {
                 page:1
             }
         })
-        const posterUrl = 'https://image.tmdb.org/t/p/original/'
+        const posterUrl = 'https://image.tmdb.org/t/p/original/';
         const modifiedData = data['results'].map((resultData) => ({
             id: resultData['id'],
             backPoster: posterUrl + resultData['backdrop_path'],
@@ -39,6 +40,7 @@ const fetchMovies = async (movieUrl) => {
 export const nowPlayingMovies = fetchMovies(nowPlayingUrl);
 export const topratedMoviesList = fetchMovies(topratedMoviesUrl);  
 export const popularMoviesList = fetchMovies(popularMoviesUrl);
+export const upcomingMoviesList = fetchMovies(upcomingMoviesUrl);
 
 export const RecoverMovieCategoryUrl = async () => {
     // try {

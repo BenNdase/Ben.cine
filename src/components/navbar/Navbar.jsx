@@ -3,7 +3,7 @@ import './Navbar.scss';
 
 const Navigationbar = () => {
   return (
-        <div className="container-fluid">
+        <div className="container-fluid fixed-top" id="home">
           <nav className="navbar navbar-expand-lg">
             <div className="navbar-brand">
               <span>Ben</span>
