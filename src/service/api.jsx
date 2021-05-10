@@ -7,7 +7,7 @@ const topratedMoviesUrl = `${apiUrl}/movie/top_rated`;
 const popularMoviesUrl = `${apiUrl}/movie/popular`;
 const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming`;
 const movieUrl = `${apiUrl}/movie`;
-const movieCategoryUrl = `${apiUrl}/genre/movie/list`;
+const genreMovieUrl = `${apiUrl}/genre/movie/list`;
 const discoverMoviesUrl = `${apiUrl}/movie/discover`;
 const personUrl = `${apiUrl}/trending/person/week`;
 
@@ -29,6 +29,25 @@ const fetchMovies = async (movieUrl) => {
             poster: posterUrl + resultData['poster_path'],
             overview: resultData['overview'],
             rating: resultData['vote_average']
+        }));
+        return modifiedData;
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+const fetchMoviesGenres = async (movieUrl) => {
+    try {
+        const {data} = await axios.get(movieUrl, {
+            params:{
+                api_key:apiKey,
+                language:'fr',
+                page:1
+            }
+        })
+        const modifiedData = data['genres'].map((resultData) => ({
+            id: resultData['id'],
+            name:resultData['name']
         }))
         console.log("Les films",modifiedData);
         return modifiedData;
@@ -41,23 +60,9 @@ export const nowPlayingMovies = fetchMovies(nowPlayingUrl);
 export const topratedMoviesList = fetchMovies(topratedMoviesUrl);  
 export const popularMoviesList = fetchMovies(popularMoviesUrl);
 export const upcomingMoviesList = fetchMovies(upcomingMoviesUrl);
-
-export const RecoverMovieCategoryUrl = async () => {
-    // try {
-    //     const {data} = await axios.get(movieCategoryUrl, {
-    //         params:{
-    //             api_key:apiKey,
-    //             language:'en_US',
-    //             page:1
-    //         }
-    //     })
-    //     const modifiedData = data['genres'].map((genre) => ({
-    //         id:genre['id'],
-    //         name:genre['name']
-    //     }))
-    //     return modifiedData;
-    // } catch (error) {}
-}
+export const movieList = fetchMovies(movieUrl);
+export const genreMoviesList = fetchMoviesGenres(genreMovieUrl);
+console.log(movieList);
 export const RecoverMoviesByCategory = async (category_id) => {
     // try {
     //     const {data} = await axios.get(movieUrl, {

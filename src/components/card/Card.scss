@@ -5,7 +5,7 @@
 }
 .card{
     border: none;
-    background-color: #151515;   
+    background-color: #15151567;   
     .image-container{
         overflow: hidden;
     }
@@ -20,14 +20,14 @@
         text-decoration: none;
     }
     &-title{
-        color: #151515;
+        color: white;
         font-family: 'Ubuntu Mono', monospace;
         font-weight: bold;
         padding: 4% 3%;
     }
     &-description{
         padding: 0 3%;
-        color: #363535;
+        color: #969494;
         font-family: 'Ubuntu Mono', monospace;
     }
 }

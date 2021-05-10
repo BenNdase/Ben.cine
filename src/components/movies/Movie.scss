@@ -1,0 +1,17 @@
+.movies-header{
+    height: 100%;
+}
+.container-movies{
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+
+    .movies-genres{
+        width: 100%;
+    }
+    .movies-background img{
+        width: 100%;
+        height: 100%;
+        margin-top: -25%;
+    }
+}

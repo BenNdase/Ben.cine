@@ -2,7 +2,7 @@ import Navbar from "../navbar/Navbar";
 
 const Header = (props) => {
   return (
-    <div>
+    <div className={props.className}>
       <div id="carousel" className="carousel slide carousel-fade" data-ride="carousel">
         <Navbar />
         <ol class="carousel-indicators">
