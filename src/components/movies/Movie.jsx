@@ -18,14 +18,21 @@ const Movie = () => {
     const fetchMoviesListApi = async () => {
       setGenreMovies(await genreMoviesList);
       setNowPlaying(await nowPlayingMovies);
-      setMoviesByGenre(await fetchMoviesByGenres());
+      setMoviesByGenre(await fetchMoviesByGenres(28));
     };
     fetchMoviesListApi();
   }, []);
+
+  const handleGenreClick = async (genre_id) => {
+      setMoviesByGenre(await fetchMoviesByGenres(genre_id));
+  }
+
   const moviesGenreList = genreMovies.map((movie, index) => {
     return (
       <li className="list-inline-item pb-1" key={index}>
-        <button type="button" className="btn btn-outline-info text-white">
+        <button type="button" className="btn btn-outline-info text-white" onClick={(() => {
+            handleGenreClick(movie.id)
+        })}>
           {movie.name}
         </button>
       </li>
@@ -38,7 +45,7 @@ const Movie = () => {
       </div>
     );
   });
-  const movieList = moviesByGenre.slice(0, 6).map((movie, index) => {
+  const movieList = moviesByGenre.map((movie, index) => {
     return (
       <>
         <CardMovies

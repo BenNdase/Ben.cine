@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Switch} from "react-router-dom";
 import Home from "./components/home/Home";
 import Movie from "./components/movies/Movie";
-import MovieDetails from "./components/movieDetails/MovieDetails";
+import MovieDetails from "./components/movies/details/MovieDetails";
 
 
 const App = () => {
