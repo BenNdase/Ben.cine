@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header firstSrc={tabMovies[7]} secondSrc={tabMovies[5]} thirdSrc={tabMovies[6]} />
+      <Header firstSrc={tabMovies[0]} secondSrc={tabMovies[1]} thirdSrc={tabMovies[2]} />
       {/* <div className="movies-nowplaying">
         <div className="container row">
           <div className="movies">
@@ -82,7 +82,7 @@ const Home = () => {
       <div className="movies-toprated">
         <div className="container row">
           <div className="movies">
-            <h3 className="movies-title">Bien noté</h3>
+            <h3 className="movies-title">Les mieux notés</h3>
             <Link to="/film/populaire" className="movies-link">Voir tout</Link>
           </div>
           {moviesTopratedList}
@@ -92,7 +92,7 @@ const Home = () => {
       <div className="movies-popular">
         <div className="container row">
           <div className="movies">
-            <h3 className="movies-title">Populaire</h3>
+            <h3 className="movies-title">Populaires</h3>
             <Link to="/film/populaire" className="movies-link">Voir tout</Link>
           </div>
           {moviesPopularList}
