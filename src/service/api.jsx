@@ -6,9 +6,9 @@ const nowPlayingUrl = `${apiUrl}/movie/now_playing`;
 const topratedMoviesUrl = `${apiUrl}/movie/top_rated`;
 const popularMoviesUrl = `${apiUrl}/movie/popular`;
 const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming`;
-const movieUrl = `${apiUrl}/movie`;
+const moviesUrl = `${apiUrl}/movie`;
 const genreMovieUrl = `${apiUrl}/genre/movie/list`;
-const discoverMoviesUrl = `${apiUrl}/movie/discover`;
+const discoverMoviesUrl = `${apiUrl}/discover/movie`;
 const personUrl = `${apiUrl}/trending/person/week`;
 
 const fetchMovies = async (movieUrl) => {
@@ -16,7 +16,7 @@ const fetchMovies = async (movieUrl) => {
         const {data} = await axios.get(movieUrl, {
             params:{
                 api_key:apiKey,
-                language:'en_US',
+                language:'fr',
                 page:1
             }
         })
@@ -49,47 +49,44 @@ const fetchMoviesGenres = async (movieUrl) => {
             id: resultData['id'],
             name:resultData['name']
         }))
-        console.log("Les films",modifiedData);
         return modifiedData;
         
     } catch (error) {
         console.log(error)
     }
 }
+export const fetchMoviesByGenres = async (genre_id) => {
+    try {
+        const {data} = await axios.get(discoverMoviesUrl, {
+            params:{
+                api_key:apiKey,
+                language:'fr',
+                page:1,
+                with_genres:genre_id
+            }
+        })
+        const posterUrl = 'https://image.tmdb.org/t/p/original/';
+        const modifiedData = data['results'].map((resultData) => ({
+            id: resultData['id'],
+            backPoster: posterUrl + resultData['backdrop_path'],
+            popularity: resultData['popularith'],
+            title: resultData['title'],
+            poster: posterUrl + resultData['poster_path'],
+            overview: resultData['overview'],
+            rating: resultData['vote_average']
+        }));
+        console.log("par genres",modifiedData)
+        return modifiedData;
+    } catch (error) {
+        
+    }
+}
 export const nowPlayingMovies = fetchMovies(nowPlayingUrl);
 export const topratedMoviesList = fetchMovies(topratedMoviesUrl);  
 export const popularMoviesList = fetchMovies(popularMoviesUrl);
 export const upcomingMoviesList = fetchMovies(upcomingMoviesUrl);
-export const movieList = fetchMovies(movieUrl);
 export const genreMoviesList = fetchMoviesGenres(genreMovieUrl);
-console.log(movieList);
-export const RecoverMoviesByCategory = async (category_id) => {
-    // try {
-    //     const {data} = await axios.get(movieUrl, {
-    //         params:{
-    //             api_key:apiKey,
-    //             language:'en_US',
-    //             page:1,
-    //             with_genre:category_id
-    //         }
-    //     })
-    //     const posterUrl = 'https://image.tmdb.org/t/p/w1280/'
-    //     const modifiedData = data['results'].map((resultData) => ({
-    //         id: resultData['id'],
-    //         backPoster: posterUrl + resultData['backdrop_path'],
-    //         popularity: resultData['popularith'],
-    //         title: resultData['title'],
-    //         poster: posterUrl + resultData['poster_path'],
-    //         overview: resultData['overview'],
-    //         rating: resultData['vote_average']
-    //     }))
-    //     console.log("Les catégories",modifiedData);
-    //     console.log(modifiedData);
-    //     return modifiedData;
-    // } catch (error) {
-        
-    // }
-}
+export const moviesByGenreList = fetchMovies(moviesUrl);
 export const RecoverPersons = () => {
     
 }
