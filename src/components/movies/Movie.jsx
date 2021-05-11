@@ -2,11 +2,7 @@ import "./Movie.scss";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import { useState, useEffect } from "react";
-import {
-  genreMoviesList,
-  nowPlayingMovies,
-  fetchMoviesByGenres,
-} from "../../service/api";
+import { genreMoviesList,nowPlayingMovies,fetchMoviesByGenres} from "../../service/api";
 import CardMovies from "../card/Card";
 
 const Movie = () => {
@@ -15,12 +11,12 @@ const Movie = () => {
   const [moviesByGenre, setMoviesByGenre] = useState([]);
 
   useEffect(() => {
-    const fetchMoviesListApi = async () => {
+    const fetchApi = async () => {
       setGenreMovies(await genreMoviesList);
       setNowPlaying(await nowPlayingMovies);
       setMoviesByGenre(await fetchMoviesByGenres(28));
     };
-    fetchMoviesListApi();
+    fetchApi();
   }, []);
 
   const handleGenreClick = async (genre_id) => {
@@ -49,6 +45,8 @@ const Movie = () => {
     return (
       <>
         <CardMovies
+          className="container-card col-md-2 col-sm-3"
+          text="Evaluation : "
           key={index}
           id={movie.id}
           poster={movie.poster}

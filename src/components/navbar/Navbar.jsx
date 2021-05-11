@@ -6,8 +6,8 @@ const Navigationbar = () => {
         <div className="w-100" id="home">
           <nav className="navbar navbar-expand-lg">
             <div className="navbar-brand">
-              <span>Ben</span>
-              <span>Ciné</span>
+              <span className="text-info">Ben</span>
+              <span className="bg-info">Ciné</span>
             </div>
             <div className="navbar-items navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">

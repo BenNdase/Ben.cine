@@ -1,0 +1,19 @@
+.movie-details{
+    width: 100%;
+    background-color: #1d1c1cbd;
+    position: absolute;
+    top: 40%;
+}
+.movies-description{
+    display: flex;
+}
+.movie-description{
+    border: 2px solid red;
+    margin: 2%;
+}
+.description-genre{
+    padding-left: 0.5% ;
+}
+.description-image{
+    display: flex;
+}

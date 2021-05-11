@@ -10,6 +10,7 @@ const moviesUrl = `${apiUrl}/movie`;
 const genreMovieUrl = `${apiUrl}/genre/movie/list`;
 const discoverMoviesUrl = `${apiUrl}/discover/movie`;
 const personUrl = `${apiUrl}/trending/person/week`;
+export const posterUrl = 'https://image.tmdb.org/t/p/original/';
 
 const fetchMovies = async (movieUrl) => {
     try {
@@ -20,7 +21,7 @@ const fetchMovies = async (movieUrl) => {
                 page:1
             }
         })
-        const posterUrl = 'https://image.tmdb.org/t/p/original/';
+        
         const modifiedData = data['results'].map((resultData) => ({
             id: resultData['id'],
             backPoster: posterUrl + resultData['backdrop_path'],
@@ -65,7 +66,6 @@ export const fetchMoviesByGenres = async (genre_id) => {
                 with_genres:genre_id
             }
         })
-        const posterUrl = 'https://image.tmdb.org/t/p/original/';
         const modifiedData = data['results'].map((resultData) => ({
             id: resultData['id'],
             backPoster: posterUrl + resultData['backdrop_path'],
@@ -81,12 +81,29 @@ export const fetchMoviesByGenres = async (genre_id) => {
         
     }
 }
+export const movieDetailsList = async (id) => {
+    try {
+        const {data} = await axios.get(`${moviesUrl}/${id}`, {
+            params:{
+                api_key:apiKey,
+                language:'fr'
+            }
+        })
+        console.log('dadta data',data)
+        return data;
+    } catch (error) {
+        
+    }
+}
+
 export const nowPlayingMovies = fetchMovies(nowPlayingUrl);
 export const topratedMoviesList = fetchMovies(topratedMoviesUrl);  
 export const popularMoviesList = fetchMovies(popularMoviesUrl);
 export const upcomingMoviesList = fetchMovies(upcomingMoviesUrl);
 export const genreMoviesList = fetchMoviesGenres(genreMovieUrl);
 export const moviesByGenreList = fetchMovies(moviesUrl);
+
+
 export const RecoverPersons = () => {
     
 }
@@ -116,9 +133,7 @@ export const RecoverDiscoverMovies = async () => {
         
     }
 }
-export const RecoverMoviesDetails = () => {
-    
-}
+
 export const RecoverMoviesVideos = () => {
 
 }
