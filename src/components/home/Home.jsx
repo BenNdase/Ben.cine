@@ -21,7 +21,7 @@ const Home = () => {
   }, []);
 
   const tabMovies = [];
-  const moviesNowPlaying = nowPLaying.slice(0, 9).map((movie,index) => {
+  const moviesNowPlaying = nowPLaying.slice(0, 6).map((movie,index) => {
     tabMovies.push(movie.backPoster);
     return(
         <>

@@ -14,19 +14,19 @@ const Footer = () => {
                 </div>
                 <div className="footer-link">
                     <Link to="">
-                        <span class="iconify" data-icon="entypo-social:facebook-with-circle" data-inline="false"></span>
+                        <span className="iconify" data-icon="entypo-social:facebook-with-circle" data-inline="false"></span>
                     </Link>
                     <Link to="">
-                        <span class="iconify" data-icon="entypo-social:twitter-with-circle" data-inline="false"></span>
+                        <span className="iconify" data-icon="entypo-social:twitter-with-circle" data-inline="false"></span>
                     </Link>
                     <Link to="">
-                        <span class="iconify" data-icon="entypo-social:instagram-with-circle" data-inline="false"></span>
+                        <span className="iconify" data-icon="entypo-social:instagram-with-circle" data-inline="false"></span>
                     </Link>
                     <Link to="">
-                        <span class="iconify" data-icon="entypo-social:linkedin-with-circle" data-inline="false"></span>
+                        <span className="iconify" data-icon="entypo-social:linkedin-with-circle" data-inline="false"></span>
                     </Link>
                     <Link to="">
-                        <span class="iconify" data-icon="entypo-social:youtube-with-circle" data-inline="false"></span>
+                        <span className="iconify" data-icon="entypo-social:youtube-with-circle" data-inline="false"></span>
                     </Link>
                 </div>
                 <div className="footer-navbar">

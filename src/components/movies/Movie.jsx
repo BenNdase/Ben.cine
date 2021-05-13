@@ -14,7 +14,7 @@ const Movie = () => {
     const fetchApi = async () => {
       setGenreMovies(await genreMoviesList);
       setNowPlaying(await nowPlayingMovies);
-      setMoviesByGenre(await fetchMoviesByGenres(28));
+      setMoviesByGenre(await fetchMoviesByGenres());
     };
     fetchApi();
   }, []);
@@ -34,10 +34,10 @@ const Movie = () => {
       </li>
     );
   });
-  const nowPlayingMovieList = nowPlaying.slice(8).map((movie, index) => {
+  const nowPlayingMovieList = nowPlaying.slice(14,15).map((movie, index) => {
     return (
       <div className="movies-background">
-        <img src={movie.poster} alt={movie.title} key={index} />
+        <img src={movie.backPoster} alt={movie.title} key={index} />
       </div>
     );
   });

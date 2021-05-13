@@ -3,7 +3,7 @@ import "./Card.scss";
 const CardMovies = (props) => {
     return(
         <div className={props.className} key={props.key} >
-            <div className="card">
+            <div className="card text-center">
               <Link to={`/film/${props.id}`} className="card-link">
                   <div className="image-container">
                     <img src={props.poster} alt={props.title} className="card-image img-fluid" />

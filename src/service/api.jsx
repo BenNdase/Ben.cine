@@ -9,7 +9,6 @@ const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming`;
 const moviesUrl = `${apiUrl}/movie`;
 const genreMovieUrl = `${apiUrl}/genre/movie/list`;
 const discoverMoviesUrl = `${apiUrl}/discover/movie`;
-const personUrl = `${apiUrl}/trending/person/week`;
 export const posterUrl = 'https://image.tmdb.org/t/p/original/';
 
 const fetchMovies = async (movieUrl) => {
@@ -94,6 +93,49 @@ export const movieDetailsList = async (id) => {
     } catch (error) {
         
     }
+}
+export const fetchCasts = async (id) => {
+    try {
+        const {data} = await axios.get(`${moviesUrl}/${id}/credits`, {
+            params:{
+                api_key:apiKey,
+                language:'fr'
+            }
+        });
+        const modifiedData = data['cast'].map((resultData) => ({
+            id:resultData['cast_id'],
+            character:resultData['character'],
+            name:resultData['name'],
+            image:"https://image.tmdb.org/t/p/w200/" +resultData['profile_path'],
+        }))
+        console.log("Acteurs",modifiedData);
+        return modifiedData;
+    } catch (error) {
+        
+    }
+}
+export const fetchSimilarMovies = async (id) => {
+   try {
+        const {data} = await axios.get(`${moviesUrl}/${id}/similar`, {
+            params:{
+                api_key:apiKey,
+                language:'fr'
+            }
+        })
+        const modifiedData = data['results'].map((resultData) => ({
+            id: resultData['id'],
+            backPoster: posterUrl + resultData['backdrop_path'],
+            popularity: resultData['popularith'],
+            title: resultData['title'],
+            poster: posterUrl + resultData['poster_path'],
+            overview: resultData['overview'],
+            rating: resultData['vote_average']
+        }));
+        console.log("similaires",modifiedData);
+        return modifiedData;
+   } catch (error) {
+       
+   } 
 }
 
 export const nowPlayingMovies = fetchMovies(nowPlayingUrl);
