@@ -1,7 +1,7 @@
 .fixed-top{
 }
 .navbar{
-    background-color: rgba(0, 0, 0, 0.685) !important;
+    background-color: rgba(0, 0, 0, 0.945) !important;
     padding: 1% 4%;
     position: fixed;
     display: flex;
@@ -32,7 +32,9 @@
         padding: auto;
     }
     &-nav{
-        font-family: 'Ubuntu Mono', monospace;
-        font-weight: bold; 
+        
     }
+}
+a.current{
+    color: #3ca2b8 !important;
 }

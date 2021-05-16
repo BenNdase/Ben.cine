@@ -21,7 +21,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #F1792F;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -48,13 +47,9 @@
     align-items: center;
     width: 100%;
 
-    &-title{
-        color: #da6319;
-    }
     &-link{
         text-decoration: none;
         color: white;
-        background-color: #F1792F;
         padding: 0.5%;
         border-radius: 2px;
         transition: all 0.4s linear;
@@ -62,7 +57,6 @@
         &:hover{
             text-decoration: none;
             color: white;
-            background-color: #d67c44;
         }
     }
     &-nowplaying,&-toprated,&-popular{

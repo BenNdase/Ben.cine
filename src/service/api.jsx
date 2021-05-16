@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const apiKey = "8e75444d164c6753a09db0ea4696aae7";
-const apiUrl = "https://api.themoviedb.org/3";
-const nowPlayingUrl = `${apiUrl}/movie/now_playing`;
-const topratedMoviesUrl = `${apiUrl}/movie/top_rated`;
-const popularMoviesUrl = `${apiUrl}/movie/popular`;
+const apiMovieUrl = "https://api.themoviedb.org/3";
+const nowPlayingUrl = `${apiMovieUrl}/movie/now_playing`;
+const topratedMoviesUrl = `${apiMovieUrl}/movie/top_rated`;
+const popularMoviesUrl = `${apiMovieUrl}/movie/popular`;
 const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming`;
-const moviesUrl = `${apiUrl}/movie`;
-const genreMovieUrl = `${apiUrl}/genre/movie/list`;
-const discoverMoviesUrl = `${apiUrl}/discover/movie`;
+const moviesUrl = `${apiMovieUrl}/movie`;
+const genreMovieUrl = `${apiMovieUrl}/genre/movie/list`;
+const discoverMoviesUrl = `${apiMovieUrl}/discover/movie`;
 export const posterUrl = 'https://image.tmdb.org/t/p/original/';
 
 const fetchMovies = async (movieUrl) => {
@@ -74,7 +74,6 @@ export const fetchMoviesByGenres = async (genre_id) => {
             overview: resultData['overview'],
             rating: resultData['vote_average']
         }));
-        console.log("par genres",modifiedData)
         return modifiedData;
     } catch (error) {
         
@@ -87,9 +86,33 @@ export const movieDetailsList = async (id) => {
                 api_key:apiKey,
                 language:'fr'
             }
-        })
-        console.log('dadta data',data)
+        });
         return data;
+    } catch (error) {
+        
+    }
+}
+export const fetchQueryMovieSearch = async (titleMovie) => {
+    try {
+        const {data} = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=8e75444d164c6753a09db0ea4696aae7&language=en-US&query=${titleMovie}&page=1&include_adult=false`, {
+            params:{
+                api_key:apiKey,
+                language:'fr',
+                page:1,
+                query:titleMovie
+            }
+        })
+        const modifiedData = data['results'].map((resultData) => ({
+            id: resultData['id'],
+            backPoster: posterUrl + resultData['backdrop_path'],
+            popularity: resultData['popularith'],
+            title: resultData['title'],
+            poster: posterUrl + resultData['poster_path'],
+            overview: resultData['overview'],
+            rating: resultData['vote_average']
+        }));
+        console.log(modifiedData);
+        return modifiedData;
     } catch (error) {
         
     }
@@ -107,8 +130,7 @@ export const fetchCasts = async (id) => {
             character:resultData['character'],
             name:resultData['name'],
             image:"https://image.tmdb.org/t/p/w200/" +resultData['profile_path'],
-        }))
-        console.log("Acteurs",modifiedData);
+        }));
         return modifiedData;
     } catch (error) {
         
@@ -131,7 +153,6 @@ export const fetchSimilarMovies = async (id) => {
             overview: resultData['overview'],
             rating: resultData['vote_average']
         }));
-        console.log("similaires",modifiedData);
         return modifiedData;
    } catch (error) {
        
@@ -168,20 +189,10 @@ export const RecoverDiscoverMovies = async () => {
             poster: posterUrl + resultData['poster_path'],
             overview: resultData['overview'],
             rating: resultData['vote_average']
-        }))
-        console.log("Les films au",modifiedData);
+        }));
         return modifiedData;
     } catch (error) {
         
     }
 }
 
-export const RecoverMoviesVideos = () => {
-
-}
-export const RecoverSimilarMovies = () => {
-    
-}
-export const RecoverCasts = () => {
-    
-}

@@ -1,6 +1,4 @@
 import "./Movie.scss";
-import Navbar from "../navbar/Navbar";
-import Footer from "../footer/Footer";
 import { useState, useEffect } from "react";
 import { genreMoviesList,nowPlayingMovies,fetchMoviesByGenres} from "../../service/api";
 import CardMovies from "../card/Card";
@@ -17,6 +15,7 @@ const Movie = () => {
       setMoviesByGenre(await fetchMoviesByGenres());
     };
     fetchApi();
+    window.scroll(0,0);
   }, []);
 
   const handleGenreClick = async (genre_id) => {
@@ -34,7 +33,7 @@ const Movie = () => {
       </li>
     );
   });
-  const nowPlayingMovieList = nowPlaying.slice(14,15).map((movie, index) => {
+  const nowPlayingMovieList = nowPlaying.slice(3,4).map((movie, index) => {
     return (
       <div className="movies-background">
         <img src={movie.backPoster} alt={movie.title} key={index} />
@@ -58,7 +57,6 @@ const Movie = () => {
   });
   return (
     <div className="movies-popular">
-      <Navbar />
       <div className="container-movies">{nowPlayingMovieList}</div>
       <div>
         <div>
@@ -70,7 +68,6 @@ const Movie = () => {
           <div className="container row">{movieList}</div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

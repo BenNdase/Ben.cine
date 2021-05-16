@@ -1,9 +1,7 @@
 import React ,{useState, useEffect} from "react";
 import {fetchCasts, fetchSimilarMovies, movieDetailsList} from "../../../service/api";
-import Navbar from "../../navbar/Navbar";
 import CardMovies from "../../card/Card";
 import {posterUrl} from "../../../service/api";
-import Footer from "../../footer/Footer";
 import "./MovieDetails.scss";
 
 const MovieDetails = ({match}) => {
@@ -21,11 +19,9 @@ const MovieDetails = ({match}) => {
             setSimilarMovies(await fetchSimilarMovies(paramsMovieDetails.id));
         }
         fetchApi();
-        console.log(fetchApi());
-        console.log(casts)
-    }, [paramsMovieDetails.id, casts]);
+        window.scroll(0,0);
+    }, [paramsMovieDetails.id]);
 
-    console.log(casts)
     let genres = detail.genres;
     let productionCompagnies = detail.production_companies;
     let releaseDate = new Date(detail.release_date).toLocaleString('fr-FR', {
@@ -59,7 +55,7 @@ const MovieDetails = ({match}) => {
             )
         })
     }
-    const similarMoviesList = similarMovies.map((movie,index) => {
+    const similarMoviesList = similarMovies.slice(0,12).map((movie,index) => {
         return(
             <>
                 <CardMovies className="container-card col-md-2 col-sm-3" text="Evaluation : " key={index} id={movie.id} poster={movie.poster} title={movie.title} rating={movie.rating} /> 
@@ -69,7 +65,7 @@ const MovieDetails = ({match}) => {
     const castsList = casts.slice(0,12).map((cast,index) => {
         return(
             <>
-                <CardMovies className="container-card col-md-2 col-sm-3" key={index} id={cast.id} poster={`${cast.image}`} title={cast.name} rating={cast.character} /> 
+                <CardMovies className="container-card col-md-2 col-sm-3" key={index} id={cast.id} poster={`${cast.image}`} title={cast.name} text={cast.character} /> 
             </>
         )
     })
@@ -91,7 +87,6 @@ const MovieDetails = ({match}) => {
     }
     return(
         <div>
-            <Navbar />
             <div className="detail-background carousel">
                 <img src={`${imageUrl}${detail.backdrop_path}`} alt={detail.title} className="w-100"/>
             </div>
@@ -123,17 +118,25 @@ const MovieDetails = ({match}) => {
                             <h5 className="text-info">Production</h5>
                             <p className="text-white text-justify">{productionCompagnies && productionCompagniesList}</p>
                         </div>
+                        <button type="button" className="btn btn-outline-danger position-absolute bottom-0" >Bande d'annoce</button>
                     </div>
                 </div>
+            </div>
+            <div className="movies-popular">
                 <div className="container row">
-                    <h3 className="text-info">Acteurs</h3>
+                    <h3 className="text-info mt-1">Acteurs</h3>
                     <div className="container row m-auto">{castsList}</div>
                 </div>
                 <div className="container row">
-                    <h3 className="text-info">Films similaires</h3>
-                    <div className="container row m-auto">{similarMoviesList}</div>
+                    {
+                        similarMoviesList !== 0 ?
+                        <div>
+                            <h3 className="text-info">Films similaires</h3>
+                            <div className="container row m-auto">{similarMoviesList}</div>
+                        </div>
+                        :null
+                    }
                 </div>
-                <Footer />
             </div>
         </div>
     )
