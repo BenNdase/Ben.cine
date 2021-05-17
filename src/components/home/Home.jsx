@@ -49,7 +49,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header firstImage={tabMovies[0]} secondImage={tabMovies[1]} thirdImage={tabMovies[5]} />
+      <Header firstImage={tabMovies[0]} secondImage={tabMovies[1]} thirdImage={tabMovies[2]} />
 
       <div className="movies-nowplaying">
         <div className="container row">

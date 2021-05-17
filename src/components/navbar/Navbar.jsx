@@ -3,7 +3,7 @@ import {useState} from "react";
 import { fetchQueryMovieSearch } from "../../service/api";
 import './Navbar.scss';
 
-const Navigationbar = (props) => {
+const Navigationbar = () => {
   const [search, setSeacrh] = useState('');
   const hystory = useHistory();
   const location = useLocation();

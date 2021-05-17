@@ -1,26 +1,32 @@
 import React ,{useState, useEffect} from "react";
-import {fetchCasts, fetchSimilarMovies, movieDetailsList} from "../../../service/api";
+import {fetchCasts, fetchMoviesVideos, fetchSimilarMovies, movieDetailsList} from "../../../service/api";
 import CardMovies from "../../card/Card";
 import {posterUrl} from "../../../service/api";
+import Avatar from "../../../assets/avatar.png"
 import "./MovieDetails.scss";
+import Modal from "../../modal/Modal";
 
 const MovieDetails = ({match}) => {
     let paramsMovieDetails = match.params;
     const [detail, setDetail] = useState([]);
     const [casts, setCasts] = useState([]);
     const [similarMovies, setSimilarMovies] = useState([]);
+    const [video, setVideo] = useState([]);
     const imageUrl = posterUrl;
-    console.log(paramsMovieDetails)
+    const youtubeUrl = "https://www.youtube.com/watch?v=";
+    const avatar = Avatar;
     
     useEffect(() => {
         const fetchApi = async () => {
             setDetail(await movieDetailsList(paramsMovieDetails.id));
-            setCasts( await fetchCasts( paramsMovieDetails.id))
+            setCasts( await fetchCasts( paramsMovieDetails.id));
             setSimilarMovies(await fetchSimilarMovies(paramsMovieDetails.id));
+            setVideo(await fetchMoviesVideos(paramsMovieDetails.id));
         }
         fetchApi();
         window.scroll(0,0);
     }, [paramsMovieDetails.id]);
+    console.log(video.key);
 
     let genres = detail.genres;
     let productionCompagnies = detail.production_companies;
@@ -30,6 +36,23 @@ const MovieDetails = ({match}) => {
         year:"numeric",
         month:"long"
     });
+
+    const setRating = (rating) => {
+        if(rating >= 8){
+          return "text-success"
+        }else if (rating >= 6){
+          return "text-warning"
+        }else{
+          return "text-danger"
+        }
+    }
+
+    // const MoviePlayer = () => {
+    //     c
+    //     return(
+            
+    //     )
+    // }
 
     let genresList;
     let productionCompagniesList;
@@ -64,8 +87,12 @@ const MovieDetails = ({match}) => {
     });
     const castsList = casts.slice(0,12).map((cast,index) => {
         return(
-            <>
-                <CardMovies className="container-card col-md-2 col-sm-3" key={index} id={cast.id} poster={`${cast.image}`} title={cast.name} text={cast.character} /> 
+            <>  
+                {
+                    cast.image === null
+                    ? <CardMovies className="container-card col-md-2 col-sm-3" key={index} id={cast.id} poster={`${avatar}`} title={cast.name} text={cast.character} /> 
+                    : <CardMovies className="container-card col-md-2 col-sm-3" key={index} id={cast.id} poster={`${imageUrl}${cast.image}`} title={cast.name} text={cast.character} /> 
+                }
             </>
         )
     })
@@ -101,24 +128,24 @@ const MovieDetails = ({match}) => {
                         <h2 className="text-info">{detail.title}</h2>
                         <p className="text-white">
                             {genres && genresList} &nbsp;
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-fill text-info" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                            </svg> &nbsp;
+                            <span className={`text-white text-justify btn police-ubuntu ${setRating(detail.vote_average)}`}>{(detail.vote_average)} </span>&nbsp;
+                            <span>
+                                | <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-fill text-info" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg> 
+                            </span>&nbsp;
                             <span className="text-white police-ubuntu">{detail.popularity}</span> &nbsp;
-                            <span className="text-white text-justify police-ubuntu">/ {releaseDate}</span>&nbsp;
-                            <span className="text-white police-ubuntu">/ {runtimeMovies()}</span>
+                            <span className="text-white text-justify police-ubuntu">| {releaseDate}</span>&nbsp;
+                            <span className="text-white police-ubuntu">| {runtimeMovies()}</span>
                         </p>
                         <p className="text-white text-justify">{detail.overview}</p>
-                        <div>
-                            <h5 className="text-info">Evaluation</h5>
-                            <p className="text-white text-justify">{detail.vote_average} ({detail.vote_average * 10}%)</p>
-                        </div>
                         <div>
                             <h5 className="text-info">Production</h5>
                             <p className="text-white text-justify">{productionCompagnies && productionCompagniesList}</p>
                         </div>
-                        <button type="button" className="btn btn-outline-danger position-absolute bottom-0" >Bande d'annoce</button>
+                        <Modal titleMovie={detail.title} url={youtubeUrl + video.key}/>
+                        {/* <p>{video.keys}</p> */}
                     </div>
                 </div>
             </div>

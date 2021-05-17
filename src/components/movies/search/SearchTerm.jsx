@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { fetchQueryMovieSearch, nowPlayingMovies, posterUrl } from "../../../service/api";
 import CardMovies from "../../card/Card";
 
-const SearchTerm = (props) => {
+const SearchTerm = () => {
     const [resultSearch, setResultSearch] = useState([]);
     const [nowPlaying, setNowPlaying] = useState([]);
     const location = useLocation();
@@ -19,7 +19,6 @@ const SearchTerm = (props) => {
         fetchApi();
         window.scroll(0,0);
     }, [term]);
-    console.log(resultSearch);
     const resultSearchList = resultSearch.map((movie,index) => {
         return(
             <>
