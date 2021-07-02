@@ -6,6 +6,8 @@ import MovieDetails from "./components/movies/details/MovieDetails";
 import SearchTerm from "./components/movies/search/SearchTerm";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
+import Series from "./components/series/Series";
+import SeriesDetails from "./components/series/details/SeriesDetails";
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
           <Route path="/films" component={Movie} exact />
           <Route path="/films/:id" component={MovieDetails} exact />
           <Route path="/recherche/:search" component={SearchTerm} exact />
+          <Route path="/series" component={Series} exact />
+          <Route path="/series/:id" component={SeriesDetails} exact />
         </Switch>
         <Footer />
       </main>

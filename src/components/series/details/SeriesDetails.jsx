@@ -1,44 +1,38 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
-  fetchCasts,
-  fetchMoviesVideos,
-  fetchSimilarMovies,
-  movieDetailsList,
+  fetchSeriesDetails,
+  posterUrl,
+  fetchCastsSeries,
+  fetchSimilarSeries,
+  fetchSeriesVideos,
 } from "../../../service/api";
-import CardMovies from "../../card/Card";
-import { posterUrl } from "../../../service/api";
-import Avatar from "../../../assets/avatar.png";
-import "./MovieDetails.scss";
+import CardSeries from "../../card/Card";
 import Modal from "../../modal/Modal";
+import Avatar from "../../../assets/avatar.png";
 
-const MovieDetails = ({ match }) => {
-  let paramsMovieDetails = match.params;
+const SeriesDetails = ({ match }) => {
+  let paramsSeriesDetails = match.params;
   const [detail, setDetail] = useState([]);
-  const [casts, setCasts] = useState([]);
-  const [similarMovies, setSimilarMovies] = useState([]);
+  const [castsSeries, setCastsSeries] = useState([]);
+  const [similarSeries, setSimilarSeries] = useState([]);
   const [video, setVideo] = useState([]);
   const imageUrl = posterUrl;
+  let genres = detail.genres;
+  let productionCompagnies = detail.production_companies;
   const youtubeUrl = "https://www.youtube.com/watch?v=";
   const avatar = Avatar;
+  // let seasons = detail.seasons
 
   useEffect(() => {
     const fetchApi = async () => {
-      setDetail(await movieDetailsList(paramsMovieDetails.id));
-      setCasts(await fetchCasts(paramsMovieDetails.id));
-      setSimilarMovies(await fetchSimilarMovies(paramsMovieDetails.id));
-      setVideo(await fetchMoviesVideos(paramsMovieDetails.id));
+      setDetail(await fetchSeriesDetails(paramsSeriesDetails.id));
+      setCastsSeries(await fetchCastsSeries(paramsSeriesDetails.id));
+      setSimilarSeries(await fetchSimilarSeries(paramsSeriesDetails.id));
+      setVideo(await fetchSeriesVideos(paramsSeriesDetails.id));
     };
     fetchApi();
     window.scroll(0, 0);
-  }, [paramsMovieDetails.id]);
-  let genres = detail.genres;
-  let productionCompagnies = detail.production_companies;
-  let releaseDate = new Date(detail.release_date).toLocaleString("fr-FR", {
-    // weekday:"long",
-    day: "numeric",
-    year: "numeric",
-    month: "long",
-  });
+  }, [paramsSeriesDetails.id]);
 
   const setRating = (rating) => {
     if (rating >= 8) {
@@ -49,21 +43,6 @@ const MovieDetails = ({ match }) => {
       return "text-danger";
     }
   };
-
-  const videoViewer = () => {
-    if (video) {
-      return <Modal titleMovie={detail.title} url={youtubeUrl + video.key} />;
-    } else {
-      return null;
-    }
-  };
-  // const MoviePlayer = () => {
-  //     c
-  //     return(
-
-  //     )
-  // }
-
   let genresList;
   let productionCompagniesList;
 
@@ -93,29 +72,20 @@ const MovieDetails = ({ match }) => {
       );
     });
   }
-  const similarMoviesList = similarMovies.slice(0, 12).map((movie, index) => {
-    return (
-      <>
-        <CardMovies
-          className="container-card col-md-2 col-sm-3"
-          link="films"
-          text="Evaluation : "
-          key={index}
-          id={movie.id}
-          poster={movie.poster}
-          title={movie.title}
-          rating={movie.rating}
-        />
-      </>
-    );
+  let releaseDate = new Date(detail.last_air_date).toLocaleString("fr-FR", {
+    // weekday:"long",
+    day: "numeric",
+    year: "numeric",
+    month: "long",
   });
-  const castsList = casts.slice(0, 12).map((cast, index) => {
+
+  const castsList = castsSeries.slice(0, 12).map((cast, index) => {
     return (
       <>
         {cast.image === null ? (
-          <CardMovies
+          <CardSeries
             className="container-card col-md-2 col-sm-3"
-            link="films"
+            link="series"
             key={index}
             id={cast.id}
             poster={`${avatar}`}
@@ -123,9 +93,9 @@ const MovieDetails = ({ match }) => {
             text={cast.character}
           />
         ) : (
-          <CardMovies
+          <CardSeries
             className="container-card col-md-2 col-sm-3"
-            link="films"
+            link="series"
             key={index}
             id={cast.id}
             poster={`${imageUrl}${cast.image}`}
@@ -136,21 +106,32 @@ const MovieDetails = ({ match }) => {
       </>
     );
   });
-  const runtimeMovies = () => {
-    let runtime = detail.runtime;
-    if (runtime < 60) {
-      console.log(runtime);
-      return `${runtime}min`;
+
+  const similarSeriesList = similarSeries.slice(0, 12).map((serie, index) => {
+    return (
+      <>
+        <CardSeries
+          className="container-card col-md-2 col-sm-3"
+          link="series"
+          text="Evaluation : "
+          key={index}
+          id={serie.id}
+          poster={serie.poster}
+          title={serie.title}
+          rating={serie.rating}
+        />
+      </>
+    );
+  });
+
+  const videoViewer = () => {
+    if (video) {
+      return <Modal titleMovie={detail.title} url={youtubeUrl + video.key} />;
     } else {
-      let hour = parseInt(runtime / 60);
-      let minutes = parseInt((runtime / 60 - hour) * 100);
-      while (minutes > 59) {
-        hour++;
-        minutes = minutes - 60;
-      }
-      return `${hour}h ${minutes}min`;
+      return null;
     }
   };
+
   return (
     <div>
       <div className="detail-background carousel">
@@ -162,14 +143,14 @@ const MovieDetails = ({ match }) => {
       </div>
       <div className="movie-details">
         <div className="movies-description">
-          <CardMovies
+          <CardSeries
             className="container-card col-md-3 col-sm-3"
+            link="series"
             id={detail.id}
             poster={`${imageUrl}${detail.poster_path}`}
-            link="films"
           />
           <div className="movie-description col-md-8 inline-block police-roboto">
-            <h2 className="text-info">{detail.title}</h2>
+            <h2 className="text-info">{detail.name}</h2>
             <p className="text-white">
               {genres && genresList} &nbsp;
               <span
@@ -200,46 +181,51 @@ const MovieDetails = ({ match }) => {
               </span>{" "}
               &nbsp;
               <span className="text-white text-justify police-ubuntu">
-                | {releaseDate}
-              </span>
-              &nbsp;
-              <span className="text-white police-ubuntu">
-                | {runtimeMovies()} |{" "}
+                | {releaseDate} |
               </span>
               <span
                 className={`text-white police-ubuntu ${setRating(
                   detail.vote_average
                 )}`}
               >
-                Film
+                Série
               </span>
             </p>
+            <h5 className="text-white">{detail.tagline}</h5>
             <p className="text-white text-justify">{detail.overview}</p>
+            <div>
+              <h5 className="text-info">Saisons</h5>
+              <p className="text-white text-justify">
+                <span>Total saison : </span>{" "}
+                <span className="text-white">
+                  {detail.number_of_seasons} Saisons
+                </span>
+              </p>
+            </div>
             <div>
               <h5 className="text-info">Production</h5>
               <p className="text-white text-justify">
                 {productionCompagnies && productionCompagniesList}
               </p>
             </div>
+            <p></p>
             {videoViewer()}
+
+            {/* <p>{video.keys}</p> */}
           </div>
         </div>
       </div>
       <div className="movies-popular">
         <div className="container row">
-          <h3 className="text-info mt-1">Casting</h3>
+          <h3 className="text-info mt-1">Acteurs</h3>
           <div className="container row m-auto">{castsList}</div>
         </div>
         <div className="container row">
-          {similarMoviesList !== 0 ? (
-            <div>
-              <h3 className="text-info">Films similaires</h3>
-              <div className="container row m-auto">{similarMoviesList}</div>
-            </div>
-          ) : null}
+          <h3 className="text-info">Séries similaires</h3>
+          <div className="container row m-auto">{similarSeriesList}</div>
         </div>
       </div>
     </div>
   );
 };
-export default MovieDetails;
+export default SeriesDetails;

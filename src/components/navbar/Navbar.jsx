@@ -34,7 +34,7 @@ const Navigationbar = () => {
                   <NavLink exact activeClassName="current" className="nav-link text-lg-start text-white" to="/films">Films</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink exact activeClassName="current" className="nav-link text-lg-start text-white" to="/séries">Séries</NavLink>
+                  <NavLink exact activeClassName="current" className="nav-link text-lg-start text-white" to="/series">Séries</NavLink>
                 </li>
               </ul>
             </div>

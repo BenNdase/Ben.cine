@@ -13,7 +13,7 @@ const Card = (props) => {
     return(
         <div className={props.className} key={props.key} >
             <div className="card text-center">
-              <Link to={`/films/${props.id}`} className="card-link">
+              <Link to={`/${props.link}/${props.id}`} className="card-link">
                   <div className="image-container">
                     <img src={props.poster} alt={props.title} className="card-image img-fluid" />
                   </div>

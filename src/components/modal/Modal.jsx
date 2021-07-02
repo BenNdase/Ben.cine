@@ -1,11 +1,11 @@
-import { useState } from "react";
+// import { useState } from "react";
 import ReactPlayer from "react-player"
 
 const Modal = (props) => {
-    const [isOpen,setIsOpen] = useState(true);
-    const playing = () => {
-        setIsOpen(false)
-    };
+    // const [isOpen,setIsOpen] = useState(true);
+    // const playing = () => {
+    //     setIsOpen(false)
+    // };
   return (
     <div>
       {/* <!-- Button trigger modal --> */}
@@ -33,26 +33,21 @@ const Modal = (props) => {
                 <ReactPlayer
                     className="container-fluid"
                     url={props.url}
-                    playing={isOpen}
                     width="100%"
                 >
 
                 </ReactPlayer>
-                {props.modalBody}
             </div>
-            <div className="modal-footer">
+            {/* <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-outline-info"
                 data-dismiss="modal"
                 onClick={playing}
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
